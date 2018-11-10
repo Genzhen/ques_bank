@@ -9,7 +9,7 @@ script:
 - npm run build
 after_script:
 - rm -rf node_modules
-- scp -o stricthostkeychecking=no  -r ./dist/* root@140.143.202.200:/yjdata/www/www
+- scp -o stricthostkeychecking=no  -r ./dist root@140.143.202.200:/yjdata/www/www
 branches:
   only:
   - master
