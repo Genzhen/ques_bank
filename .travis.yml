@@ -1,0 +1,39 @@
+language: node_js
+node_js: stable
+# env:
+# - [
+#     {secure: "VzOr5zjCJbGJjAlqWnmtsIu7nRMwA31Sfnq4SFPG7QYGOuEgn6xX03jMQUGESfAnmUmcQ9dZ1h2ASrkYbiXfSbeItMdLviL6shor0Nr3eyrlZhvmjZJWJK4Lw3ggrsOmj2fHx7yITDqrrWi8nr/zRxovNmBc3iDrQEaezAyCebmaai/DEB8I9XO2PaEzYVNslFJm8xvMUVV5TVR2GjgkgA/GWXj33UW1d484El7YNq4RAnFKtGpg25JKTRIOHX1OpytHxhYTm0ESbI3sxfCGE+wAm0eBJJe6C2Fk4JfMkR6lp/1GNHi4yQLE620GDJPZeeFURz1bKVtysGsql0CIZnnBAZCYMIZqV614OjFkkq3JSatmizANZCcec5Q9PTKip+aaDy6v+/FggEJXp6TfZ47mq09HI5zQon5Mol94D89j8pKPKBAKbSMHLBMOEFzT8rVpV6T7sDg5AIki+RiHOWUlPlcP/vR/uLofFyd8aG1a0wrMIM53Ls5r7X1G/OZ0mqYPsdZ2BDS8U+tmbt558wLQJ84YaOtxnUkyRPk79MdvPFOg+kHzTk9+xwur3wQwZRwiRcX8JkQ+P+3jCfIlU2srX5fwPbJhJPgnujSRHmSP04igOELmPkrh7L+r5u+rCce9yt+4dpCZYfREV0m9btZMhzT+dHp4i6WihwDhgr0="},
+#     {secure: "BEQL7IZHKLmiXbc6H8elNwRlyGjiHnRS39QwfdH8JVRq9s9QOaaj35kJoc11ijqh9KdxNFzFW/Kc9u4XJKwJ9lyWe5dvqW0AShViFrdCaUWOhDwgDYW7WfvttlViMXHY/uuBJsu/w4SrLlSUNmm6me3//4D8cC8975if1qv/yEFY0k1Wwp1N3DhK+pufIEm4bUefhdQaVW7hJrhS0fbVDj/HIavwmI02rlKKOvjJH2SrFqMJWu7fPOZ3rThCW7Us/nHZOgt6Iipzshsosoih8dnj0HI+DAqzS7//qQqPszPVsvUfblwV7NyuItCqrbmAEKMY5TnP1pSN1mw2+8OZobo0x3jVszh/qDum8R88JGjzEDhwdYQw/h2oR+FXzCi4q+MVy9UHf7Bn8zNlpd3hCjKidPC2hOU78g9aj/ug4wVx7EsfYzBnfenadTIRf37MChVlLleDdAnPOTtmmoA4k3jDxOwk0T0EkzuzI6ublHosljMuqbKbKqxV1jX2k419+axM24CAPXsFRP3QvtZ+7R0ZZa79pBD3GaBVXKtxZn2lgo55LMAEoHNGfJOxe1NfntEIy6doHshkBYO3+Vx5GHmf69jk/TWrwL0zMOOvU0c31r5W3l1ZW4Fo5oiHHISHGlt+V8eCeRf0cJCv3Zc1IKePsFwwwjHfmDw2ykxenaA="}
+#   ]
+install:
+- npm install
+script:
+- npm run e2e
+# - node ./test/e2e.js
+- npm run unit
+- npm run server
+after_script:
+- rm -rf node_modules
+- scp -o stricthostkeychecking=no  -r ./* root@140.143.202.200:/usr/share/nginx/html/test
+branches:
+  only:
+  - master
+before_install:
+#  - "export DISPLAY=:99.0"
+# - "sh -e /etc/init.d/xvfb start"
+# - sleep 3
+# - fluxbox >/dev/null 2>&1 &
+- openssl aes-256-cbc -K $encrypted_adfd768a7744_key -iv $encrypted_adfd768a7744_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+addons:
+  ssh_known_hosts: 140.143.202.200
+  # firefox: latest
+  # apt:
+  #   sources:
+  #    - google-chrome
+  #   packages:
+  #    - google-chrome-stable fluxbox
+
+# env:
+# - MOZ_HEADLESS=1
