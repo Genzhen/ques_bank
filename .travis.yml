@@ -5,7 +5,7 @@ install:
 script:
 - npm run e2e
 - npm run unit
-- npm run server
+# - npm run server
 after_script:
 - rm -rf node_modules
 - scp -o stricthostkeychecking=no  -r ./* root@140.143.202.200:/yjdata/www/www
